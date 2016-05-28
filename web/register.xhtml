@@ -24,9 +24,9 @@
                 <h:message for="username"/>
                 Password:
                 <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" />
-                <h:inputHidden id="type" value="#{userBackBean.user.type = 2}" 
+                <h:inputHidden id="type" value="#{userBackBean.user.type = 2}" />
                 <h:message for="password"/>
-                <h:commandButton value="Cadastrar" action="#{userBackBean.add()}"
+                <h:commandButton value="Cadastrar" action="#{userBackBean.add()}"/>
             </h:panelGrid>
         </h:form>
     </ui:define>
