@@ -3,7 +3,10 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./_blogTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+    <ui:define name="title">
+        Blog
+    </ui:define>
+    
     <ui:define name="top">
         top
     </ui:define>
@@ -11,8 +14,8 @@
     <ui:define name="content">
         <h:dataTable value="#{articleBackBean.articles}" var="a">
             <h:column>
-                <h1>#{a.title}</h1><br/>
-                #{a.body}<br/><br/>
+                #{a.title}
+                #{a.body}
                 <h:outputText value="Created in:"/> #{a.created.date} |
                 <h:outputText value="by:"/> #{a.creator.name} 
                 Show Comments 
