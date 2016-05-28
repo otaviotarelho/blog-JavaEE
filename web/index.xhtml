@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./_blogTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+        <h:dataTable value="#{articleBackBean.articles}" var="a">
+            <h:column>
+                <h1>#{a.title}</h1><br/>
+                #{a.body}<br/><br/>
+                <h:outputText value="Created in:"/> #{a.created.date} |
+                <h:outputText value="by:"/> #{a.creator.name} 
+                Show Comments 
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>
