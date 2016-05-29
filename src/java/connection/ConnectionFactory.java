@@ -14,9 +14,9 @@ import java.sql.SQLException;
  * @author otaviotarelho
  */
 public class ConnectionFactory {
-    private static final String DATABASE_URL = "jdbc:mysql://localhost/blog";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/blog";
     private static final String DATABASE_USER = "root";
-    private static final String DATABASE_PWD = "password";
+    private static final String DATABASE_PWD = "root";
     
     public Connection getConnection() throws SQLException {
         try{

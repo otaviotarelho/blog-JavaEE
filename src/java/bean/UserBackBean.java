@@ -30,7 +30,8 @@ public class UserBackBean implements Serializable {
     private List<User> users = new ArrayList<>();
     private String ErrorMessage;
 
-    public UserBackBean() {
+    public UserBackBean() throws SQLException {
+        list();
     }
 
     public User getUser() {

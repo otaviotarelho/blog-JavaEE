@@ -14,11 +14,9 @@
     <ui:define name="content">
         <h:dataTable value="#{articleBackBean.articles}" var="a">
             <h:column>
-                #{a.title}
-                #{a.body}
-                <h:outputText value="Created in:"/> #{a.created.date} |
-                <h:outputText value="by:"/> #{a.creator.name} 
-                Show Comments 
+                #{a.title} <br />
+                #{a.body} <br />
+                <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} Show Comments
             </h:column>
         </h:dataTable>
     </ui:define>

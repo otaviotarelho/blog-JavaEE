@@ -8,6 +8,7 @@ package bean;
 import article.Article;
 import article.ArticleDAO;
 import java.io.Serializable;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,14 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 
-public class ArticleBackBean implements Serializable {
+public class ArticleBackBean {
 
     private Article article = new Article();
     private List<Article> articles = new ArrayList<>();
     private String ErrorMessage;
 
-    public ArticleBackBean() {
+    public ArticleBackBean() throws SQLException {
+        getAllArticle();
     }
 
     public Article getArticle() {

@@ -20,9 +20,10 @@ import user.User;
  */
 public class ArticleDAO {
 
-    private static final String SQL_NEW = "";
+    private static final String SQL_NEW = "INSERT INTO `blog`.`articles` (`title`, `body`, `date`, `authorID`) "
+            + "VALUES ('?', '?', 'now()', '1');";
     private static final String SQL_SELECT_ONE = "SELECT * FROM articles WHERE id=?";
-    private static final String SQL_SELECT_ALL = "SELECT * FROM articles";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM articles ";
     private static final String SQL_SELECT_USER = "SELECT * FROM articles where author=?";
     private static final String SQL_REMOVE = "";
     private static final String SQL_EDIT = "";
@@ -33,7 +34,9 @@ public class ArticleDAO {
             connection = new ConnectionFactory().getConnection();
             try {
                 PreparedStatement stmt = connection.prepareStatement(SQL_NEW);
-                //Adicionar linhas
+                stmt.setString(1,article.getTitle());
+                stmt.setString(2,article.getBody());
+                stmt.setLong(3, 1);
                 stmt.execute();
             } finally {
                 connection.close();
@@ -65,7 +68,7 @@ public class ArticleDAO {
             connection = new ConnectionFactory().getConnection();
             try {
                 ResultSet rs;
-                try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_ONE)) {
+                try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_ALL)) {
                     rs = stmt.executeQuery();
                     while (rs.next()) {
                         Article a = new Article();
@@ -75,8 +78,10 @@ public class ArticleDAO {
                         a.setTitle(rs.getString("title"));
                         
                         User u = new User();
-                        u.setId(rs.getLong("authorID"));
-                        u.setName(rs.getString("author"));
+                        //u.setId(rs.getLong("authorID"));
+                        //u.setName(rs.getString("author"));
+                        u.setId((long)1);
+                        u.setName("Otavio");
                         a.setCreator(u);
                         
                         articles.add(a);
