@@ -31,7 +31,7 @@ public class ArticleBackBean {
     private String ErrorMessage;
 
     public ArticleBackBean() throws SQLException {
-        getAllArticle();
+       
     }
 
     public Article getArticle() {
@@ -89,7 +89,7 @@ public class ArticleBackBean {
     public String getArticle(Long id) throws SQLException {
         ArticleDAO a = new ArticleDAO();
         try {
-            a.getOne(id);
+            setArticle(a.getOne(id));
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();
             Logger.getLogger(ArticleBackBean.class.getName()).log(Level.SEVERE, null, e);

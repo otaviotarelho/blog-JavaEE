@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import user.User;
 import user.UserDAO;
 
@@ -98,4 +99,38 @@ public class UserBackBean implements Serializable {
         return null;
     }
     
+    private static final String USERNAME = "otaviotarelho";
+    private static final String PWD = "123";
+    private boolean authorized;
+    private String message;
+
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public String loggin(){
+        if(user.getUsername().equals(USERNAME) && user.getPwd().equals(PWD)){
+            authorized = true;
+            return "/admin/main";
+        }
+        message = "Username or password incorret!";
+        return null;
+    }
+    
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index";
+    }
 }

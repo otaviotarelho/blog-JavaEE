@@ -11,12 +11,12 @@
     <ui:define name="content">
         <h:form>
             <h:outputText value="Login:" />
-            <h:inputText id="login" value="#{user.username}" required="true"
+            <h:inputText id="login" value="#{userBackBean.user.username}" required="true"
                       requiredMessage="Erro: informe o login"/>
             <h:outputText value="Senha:" />
-            <h:inputText id="password" value="#{user.pwd}" 
+            <h:inputText id="password" value="#{userBackBean.user.pwd}" 
                          required="true" requiredMessage="Erro: informe a senha" />
-            <h:commandButton value="Login" action="#{user.login}" />
+            <h:commandButton value="Login" action="#{userBackBean.loggin()}" />
         </h:form>
     </ui:define>
 

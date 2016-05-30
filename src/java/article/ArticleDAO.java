@@ -135,7 +135,7 @@ public class ArticleDAO {
             connection = new ConnectionFactory().getConnection();
             try {
                 ResultSet rs;
-                try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_ALL)) {
+                try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_ONE)) {
                     stmt.setLong(1, art);
                     rs = stmt.executeQuery();
                     while (rs.next()) {
@@ -145,8 +145,10 @@ public class ArticleDAO {
                         articles.setTitle(rs.getString("title"));
                         
                         User u = new User();
-                        u.setId(rs.getLong("authorID"));
-                        u.setName(rs.getString("author"));
+                        u.setId((long)1);
+                        u.setName("Otavio");
+//                        u.setId(rs.getLong("authorID"));
+//                        u.setName(rs.getString("author"));
                         articles.setCreator(u);
                         
                     }
