@@ -39,7 +39,7 @@ public class AdminFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(true);
         UserBackBean mb = new UserBackBean();
         mb.setUser((User) session.getAttribute("user"));
-        if(mb.getUser() != null && mb.getUser().isAuthorized()){
+        if(mb.getUser() != null && mb.getUser().isAuthorized() && mb.getUser().getType() == 1){
             chain.doFilter(request, response);
         }
         else {
