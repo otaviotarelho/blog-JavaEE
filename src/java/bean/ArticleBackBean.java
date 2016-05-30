@@ -24,7 +24,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 
-public class ArticleBackBean {
+public class ArticleBackBean implements Serializable {
 
     private Article article = new Article();
     private List<Article> articles = new ArrayList<>();

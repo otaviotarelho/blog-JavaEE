@@ -11,13 +11,15 @@
 
     <ui:define name="content">
         #{articleBackBean.allArticle}
-        <h:dataTable value="#{articleBackBean.articles}" var="a">
-            <h:column>
-                #{a.title} <br />
-                #{a.body} <br />
-                <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} Show Comments
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:dataTable value="#{articleBackBean.articles}" var="a">
+                <h:column>
+                    #{a.title} <br />
+                    #{a.body} <br />
+                    <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">Show Comments</h:outputLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </ui:define>
 
     <ui:define name="bottom">

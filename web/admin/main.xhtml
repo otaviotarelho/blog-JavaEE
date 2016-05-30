@@ -3,35 +3,39 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./_adminTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" 
+                xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="top">
-        top
+        Welcome #{userBackBean.user.getName()}!
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{articleBackBean.articles}" var="a">
-            <h:column>
-                <f:facet name="header">ID</f:facet>
-                #{a.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Title</f:facet>
-                #{a.title} 
-            </h:column>
-            <h:column>
-                <f:facet name="header">Created in</f:facet>
-                #{a.created.date}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Author</f:facet>
-                #{a.creator.name}
-            </h:column>
-            <h:column>
-                <h:commandButton action="index.html" value="edit"/>
-                <h:commandButton action="#{articlesBackBean.removeArticle(a.id)}" value="remove"/>
-            </h:column>
-        </h:dataTable>
+        #{articleBackBean.getAllArticle()}
+        <h:form>
+            <h:dataTable value="#{articleBackBean.articles}" var="a">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{a.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    #{a.title} 
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Created in</f:facet>
+                    #{a.created.date}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    #{a.creator.name}
+                </h:column>
+                <h:column>
+                    <h:commandButton action="index.html" value="edit"/>
+                    <h:commandButton action="#{articlesBackBean.removeArticle(a.id)}" value="remove"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </ui:define>
 
     <ui:define name="bottom">

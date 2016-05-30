@@ -21,6 +21,7 @@ public class UserDAO {
     private static final String SQL_NEW = "";
     private static final String SQL_REMOVE = "";
     private static final String SQL_USERS = "SELECT * FROM users";
+    private static final String SQL_USER = "SELECT * FROM users where username = ?";
     private Connection connection;
     
     public void addNew(User user) throws SQLException {
@@ -76,6 +77,36 @@ public class UserDAO {
                     u.setLastSignIn(rs.getDate("lastsingin"));
                     u.setPwd(rs.getString("pwd"));
                     users.add(u);
+                }
+                
+                stmt.close();
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        
+        return users;
+    }
+    
+    public User getUser(String username) throws SQLException {
+        User users = new User();
+        
+        try {
+            connection = new ConnectionFactory().getConnection();
+            try {
+                PreparedStatement stmt = connection.prepareStatement(SQL_USER);
+                stmt.setString(1, username);
+                ResultSet rs = stmt.executeQuery();
+                
+                while(rs.next()) {
+                    users.setId(rs.getLong("id"));
+                    users.setName(rs.getString("name"));
+                    users.setUsername(rs.getString("username"));
+                    users.setType(rs.getInt("type"));
+                    users.setLastSignIn(rs.getDate("lastsingin"));
+                    users.setPwd(rs.getString("pwd"));
                 }
                 
                 stmt.close();

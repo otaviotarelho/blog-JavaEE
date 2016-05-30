@@ -23,7 +23,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class CommentBackBean  implements Serializable{
+public class CommentBackBean  implements Serializable {
     private Comment comment = new Comment();
     private List<Comment> comments = new ArrayList<>();
     private String ErrorMessage;

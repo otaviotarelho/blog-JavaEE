@@ -5,20 +5,30 @@
  */
 package user;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author otaviotarelho
  */
-public class User {
+public class User implements Serializable{
     private Long id;
     private String username;
     private String pwd;
     private Integer type;
     private String name;
     private Date lastSignIn;
+    private boolean authorized;
 
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
+    }
+    
     public Long getId() {
         return id;
     }

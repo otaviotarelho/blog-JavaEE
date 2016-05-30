@@ -6,6 +6,7 @@
 
 package article;
 
+import java.io.Serializable;
 import java.util.Date;
 import user.User;
 
@@ -14,7 +15,7 @@ import user.User;
  * @author otaviotarelho
  */
 
-public class Comment {
+public class Comment implements Serializable{
     private Long id;
     private User author;
     private String content;

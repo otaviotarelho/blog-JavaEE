@@ -5,6 +5,7 @@
  */
 package filter;
 
+import bean.UserBackBean;
 import java.io.IOException;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -36,14 +37,14 @@ public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(true);
-        User user = (User) session.getAttribute("user");
-        if(user != null){
+        UserBackBean mb = new UserBackBean();
+        mb.setUser((User) session.getAttribute("user"));
+        if(mb.getUser() != null && mb.getUser().isAuthorized()){
             chain.doFilter(request, response);
         }
         else {
-            user = new User();
-            //user.setMessage("Please, enter your username and password");
             String contextPath = ((HttpServletRequest) request).getContextPath();
+            mb.setMessage("Please, enter your login or password");
             ((HttpServletResponse) response).sendRedirect(contextPath + "/faces/login.xhtml");
         }
     }

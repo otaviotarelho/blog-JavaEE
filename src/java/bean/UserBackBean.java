@@ -31,8 +31,8 @@ public class UserBackBean implements Serializable {
     private List<User> users = new ArrayList<>();
     private String ErrorMessage;
 
-    public UserBackBean() throws SQLException {
-        list();
+    public UserBackBean(){
+        
     }
 
     public User getUser() {
@@ -99,18 +99,7 @@ public class UserBackBean implements Serializable {
         return null;
     }
     
-    private static final String USERNAME = "otaviotarelho";
-    private static final String PWD = "123";
-    private boolean authorized;
     private String message;
-
-    public boolean isAuthorized() {
-        return authorized;
-    }
-
-    public void setAuthorized(boolean authorized) {
-        this.authorized = authorized;
-    }
 
     public String getMessage() {
         return message;
@@ -120,11 +109,18 @@ public class UserBackBean implements Serializable {
         this.message = message;
     }
     
-    public String loggin(){
-        if(user.getUsername().equals(USERNAME) && user.getPwd().equals(PWD)){
-            authorized = true;
+    public String loggin() throws SQLException{
+        UserDAO u = new UserDAO();
+        User aux = new User();
+        
+        aux = u.getUser(user.getUsername());
+        
+        if(user.getUsername().equals(aux.getUsername()) && user.getPwd().equals(aux.getPwd())){
+            user = aux;
+            user.setAuthorized(true);
             return "/admin/main";
         }
+        
         message = "Username or password incorret!";
         return null;
     }
