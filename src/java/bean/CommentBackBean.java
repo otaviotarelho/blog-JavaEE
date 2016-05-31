@@ -47,6 +47,10 @@ public class CommentBackBean  implements Serializable {
         this.comments = comments;
     }
     
+    public int getSize(){
+        return this.comments.size();
+    }
+    
     public String add() throws SQLException{
         CommentsDAO c = new CommentsDAO();
         
@@ -84,7 +88,7 @@ public class CommentBackBean  implements Serializable {
         
         try {
             
-            comments = c.getComments(art);
+            this.setComments(c.getComments(art));
             
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();

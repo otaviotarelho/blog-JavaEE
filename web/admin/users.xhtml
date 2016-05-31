@@ -5,16 +5,13 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
-    
-    <ui:define name="title">
-        User of the System
-    </ui:define>
-    
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
+        <h:form>Welcome #{userBackBean.user.getName()} | <h:commandLink value="Logout" action="#{userBackBean.logout()}"/></h:form>
+        
+        <h:outputLink  value="./new-article.xhtml">New Article</h:outputLink> |
+        <h:outputLink  value="./register-user.xhtml">New User</h:outputLink> |
+        <h:outputLink  value="./users.xhtml">Users</h:outputLink>
+        
         #{userBackBean.list()}
         <h:form>
             <h:dataTable value="#{userBackBean.users}" var="u">
@@ -48,9 +45,4 @@
             </h:dataTable>
         </h:form>
     </ui:define>
-
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
-
 </ui:composition>

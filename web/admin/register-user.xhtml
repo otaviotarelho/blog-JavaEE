@@ -5,16 +5,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
-    
-    <ui:define name="title">
-        Register New User
-    </ui:define>
-    
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
+        
+        <h:form>Welcome #{userBackBean.user.getName()} | <h:commandLink value="Logout" action="#{userBackBean.logout()}"/></h:form>
+        
+        <h:outputLink  value="./new-article.xhtml">New Article</h:outputLink> |
+        <h:outputLink  value="./register-user.xhtml">New User</h:outputLink> |
+        <h:outputLink  value="./users.xhtml">Users</h:outputLink>
+        
         <h:form>
             <h:panelGrid columns="3">
                 Name:
@@ -28,18 +26,13 @@
                 <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" />
                 <h:message for="password"/>
                 Type:
-                <h:selectOneMenu>
+                <h:selectOneMenu id="type" value="#{userBackBean.user.type}">
                     <f:selectItem itemValue="1" itemLabel="Admin"/>
                     <f:selectItem itemValue="2" itemLabel="Reader"/>
                 </h:selectOneMenu>
-                <h:message for="password"/>
+                <h:message for="type"/>
                 <h:commandButton value="register" action="#{userBackBean.add()}"/>
             </h:panelGrid>
         </h:form>
     </ui:define>
-
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
-
 </ui:composition>

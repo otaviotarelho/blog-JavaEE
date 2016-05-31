@@ -118,7 +118,12 @@ public class UserBackBean implements Serializable {
         if(user.getUsername().equals(aux.getUsername()) && user.getPwd().equals(aux.getPwd())){
             user = aux;
             user.setAuthorized(true);
-            return "/admin/main";
+            if(user.getType() == 1){
+                return "/admin/main";
+            }
+            else{
+                return "/index";
+            }
         }
         
         message = "Username or password incorret!";

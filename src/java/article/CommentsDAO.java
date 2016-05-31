@@ -33,7 +33,8 @@ public class CommentsDAO {
                 ResultSet rs = stmt.executeQuery();
                 while(rs.next()){
                     Comment c = new Comment();
-                    c.setAuthor(rs.getString("author"), rs.getLong("authorID"));
+                    //c.setAuthor(rs.getString("author"), rs.getLong("authorID"));
+                    c.setAuthor("Otavio",(long)1);
                     c.setId(rs.getLong("id"));
                     c.setContent(rs.getString("content"));
                     c.setDateOfCreation(rs.getDate("date"));

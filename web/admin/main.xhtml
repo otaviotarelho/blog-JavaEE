@@ -6,11 +6,13 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core" 
                 xmlns="http://www.w3.org/1999/xhtml">
 
-    <ui:define name="top">
-        Welcome #{userBackBean.user.getName()}! #{userBackBean.user.getType()} <h:form><h:commandLink value="Logout" action="#{userBackBean.logout()}"/></h:form>
-    </ui:define>
-
     <ui:define name="content">
+        <h:form>Welcome #{userBackBean.user.getName()} | <h:commandLink value="Logout" action="#{userBackBean.logout()}"/></h:form>
+        
+        <h:outputLink  value="./new-article.xhtml">New Article</h:outputLink> |
+        <h:outputLink  value="./register-user.xhtml">New User</h:outputLink> |
+        <h:outputLink  value="./users.xhtml">Users</h:outputLink>
+        
         #{articleBackBean.getAllArticle()}
         <h:form>
             <h:dataTable value="#{articleBackBean.articles}" var="a">
@@ -31,15 +33,12 @@
                     #{a.creator.name}
                 </h:column>
                 <h:column>
-                    <h:commandButton action="index.html" value="edit"/>
+                    <h:commandButton action="./edit-article.xhtml" value="edit">
+                        <f:param name="id" value="#{a.id}"/>
+                    </h:commandButton>
                     <h:commandButton action="#{articlesBackBean.removeArticle(a.id)}" value="remove"/>
                 </h:column>
             </h:dataTable>
         </h:form>
     </ui:define>
-
-    <ui:define name="bottom">
-        Authors: Leonardo Oliveira, Mariana Bispo e Otavio Tarelho
-    </ui:define>
-
 </ui:composition>

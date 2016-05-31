@@ -18,8 +18,8 @@ import java.util.List;
  * @author otaviotarelho
  */
 public class UserDAO {
-    private static final String SQL_NEW = "";
-    private static final String SQL_REMOVE = "";
+    private static final String SQL_NEW = "INSERT INTO `users` (`name`, `username`, `pwd`, `type`) VALUES (?, ?, ?, ?)";
+    private static final String SQL_REMOVE = "UPDATE `blog`.`users` SET `valid`='0' WHERE `id`=?;";
     private static final String SQL_USERS = "SELECT * FROM users";
     private static final String SQL_USER = "SELECT * FROM users where username = ?";
     private Connection connection;
@@ -32,7 +32,7 @@ public class UserDAO {
                 stmt.setString(1, user.getName());
                 stmt.setString(2, user.getUsername());
                 stmt.setString(3, user.getPwd());
-                stmt.setInt(3, user.getType());
+                stmt.setInt(4, user.getType());
                 stmt.execute();
                 stmt.close();
             } finally {
@@ -69,14 +69,16 @@ public class UserDAO {
                 ResultSet rs = stmt.executeQuery();
                 
                 while(rs.next()) {
-                    User u = new User();
-                    u.setId(rs.getLong("id"));
-                    u.setName(rs.getString("name"));
-                    u.setUsername(rs.getString("username"));
-                    u.setType(rs.getInt("type"));
-                    u.setLastSignIn(rs.getDate("lastsingin"));
-                    u.setPwd(rs.getString("pwd"));
-                    users.add(u);
+                    if(rs.getInt("valid") != 0){
+                        User u = new User();
+                        u.setId(rs.getLong("id"));
+                        u.setName(rs.getString("name"));
+                        u.setUsername(rs.getString("username"));
+                        u.setType(rs.getInt("type"));
+                        u.setLastSignIn(rs.getDate("lastsingin"));
+                        u.setPwd(rs.getString("pwd"));
+                        users.add(u);
+                    }
                 }
                 
                 stmt.close();
@@ -101,12 +103,14 @@ public class UserDAO {
                 ResultSet rs = stmt.executeQuery();
                 
                 while(rs.next()) {
-                    users.setId(rs.getLong("id"));
-                    users.setName(rs.getString("name"));
-                    users.setUsername(rs.getString("username"));
-                    users.setType(rs.getInt("type"));
-                    users.setLastSignIn(rs.getDate("lastsingin"));
-                    users.setPwd(rs.getString("pwd"));
+                    if(rs.getInt("valid") != 0){
+                        users.setId(rs.getLong("id"));
+                        users.setName(rs.getString("name"));
+                        users.setUsername(rs.getString("username"));
+                        users.setType(rs.getInt("type"));
+                        users.setLastSignIn(rs.getDate("lastsingin"));
+                        users.setPwd(rs.getString("pwd"));
+                    }
                 }
                 
                 stmt.close();

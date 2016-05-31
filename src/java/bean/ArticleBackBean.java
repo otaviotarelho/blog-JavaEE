@@ -69,7 +69,7 @@ public class ArticleBackBean implements Serializable {
             throw e;
         }
 
-        return null;
+        return "main";
     }
 
     public String getAllArticle() throws SQLException {
@@ -99,19 +99,6 @@ public class ArticleBackBean implements Serializable {
         return null;
     }
 
-    public String getArticleByUser(Long id) throws SQLException {
-        ArticleDAO a = new ArticleDAO();
-        try {
-            a.getByUser(id);
-        } catch (SQLException e) {
-            ErrorMessage = e.getMessage();
-            Logger.getLogger(ArticleBackBean.class.getName()).log(Level.SEVERE, null, e);
-            throw e;
-        }
-
-        return null;
-    }
-
     public String removeArticle(Long id) throws SQLException {
         ArticleDAO a = new ArticleDAO();
         try {
@@ -122,20 +109,20 @@ public class ArticleBackBean implements Serializable {
             throw e;
         }
 
-        return null;
+        return "main";
     }
 
     public String editArticle() throws SQLException {
         ArticleDAO a = new ArticleDAO();
         try {
-            a.remove(article.getId());
+            a.edit(article);
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();
             Logger.getLogger(ArticleBackBean.class.getName()).log(Level.SEVERE, null, e);
             throw e;
         }
 
-        return null;
+        return "main";
     }
 
 }

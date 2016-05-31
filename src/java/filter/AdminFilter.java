@@ -27,8 +27,8 @@ import user.User;
  *
  * @author otaviotarelho
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/faces/admin/*"},
-        dispatcherTypes = {DispatcherType.REQUEST})
+///@WebFilter(filterName = "AdminFilter", urlPatterns = {"/faces/admin/*"},
+   //   dispatcherTypes = {DispatcherType.REQUEST})
 
 public class AdminFilter implements Filter {
     
@@ -40,17 +40,15 @@ public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(true);
-        UserBackBean mb = new UserBackBean();
-        mb.setUser((User) session.getAttribute("user"));
+        User user = ((User) session.getAttribute("user"));
         
-        if(mb.getUser() != null && mb.getUser().isAuthorized() && mb.getUser().getType() != 2){
+        if(user != null && user.isAuthorized() && user.getType() != 2){
             chain.doFilter(request, response);
-            Logger.getLogger(AdminFilter.class.getName()).log(Level.SEVERE, null, mb.getUser().getType());
+            Logger.getLogger(AdminFilter.class.getName()).log(Level.SEVERE, null, user.getType());
         }
         else {
-            String contextPath = ((HttpServletRequest) request).getContextPath();
-            mb.setMessage("Please, enter your login or password");
-            ((HttpServletResponse) response).sendRedirect(contextPath + "/faces/login.xhtml");
+            user = new User();
+            session.setAttribute("user", user);
         }
     }
     

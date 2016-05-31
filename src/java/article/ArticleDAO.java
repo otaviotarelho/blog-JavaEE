@@ -20,13 +20,12 @@ import user.User;
  */
 public class ArticleDAO {
 
-    private static final String SQL_NEW = "INSERT INTO `blog`.`articles` (`title`, `body`, `date`, `authorID`) "
-            + "VALUES ('?', '?', 'now()', '1');";
+    private static final String SQL_NEW = "INSERT INTO `articles` (`title`, `body`, `date`, `authorID`) "
+            + "VALUES (?, ?, NOW(), ?);";
     private static final String SQL_SELECT_ONE = "SELECT * FROM articles WHERE id=?";
     private static final String SQL_SELECT_ALL = "SELECT * FROM articles ";
-    private static final String SQL_SELECT_USER = "SELECT * FROM articles where author=?";
-    private static final String SQL_REMOVE = "";
-    private static final String SQL_EDIT = "";
+    private static final String SQL_REMOVE = "DELETE FROM `blog`.`articles` WHERE `id`=?;";
+    private static final String SQL_EDIT = "UPDATE `articles` SET `title`=?, `body`=? WHERE `id`=?;";
     private Connection connection;
 
     public void addNew(Article article) throws SQLException {
@@ -36,7 +35,7 @@ public class ArticleDAO {
                 PreparedStatement stmt = connection.prepareStatement(SQL_NEW);
                 stmt.setString(1,article.getTitle());
                 stmt.setString(2,article.getBody());
-                stmt.setLong(3, 1);
+                stmt.setInt(3, 1);
                 stmt.execute();
             } finally {
                 connection.close();
@@ -98,37 +97,6 @@ public class ArticleDAO {
         return articles;
     }
     
-    public Article getByUser(Long user) throws SQLException {
-        Article articles = new Article();
-        try {
-            connection = new ConnectionFactory().getConnection();
-            try {
-                ResultSet rs;
-                try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_ALL)) {
-                    stmt.setLong(1, user);
-                    rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        articles.setId(rs.getLong("id"));
-                        articles.setBody(rs.getString("body"));
-                        articles.setCreated(rs.getDate("date"));
-                        articles.setTitle(rs.getString("title"));
-                        User u = new User();
-                        u.setId(rs.getLong("authorID"));
-                        u.setName(rs.getString("author"));
-                        articles.setCreator(u);
-                    }
-                }
-                rs.close();
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-
-        return articles;
-    }
-    
     public Article getOne(Long art) throws SQLException {
         Article articles = new Article();
         try {
@@ -171,9 +139,7 @@ public class ArticleDAO {
                 try (PreparedStatement stmt = connection.prepareStatement(SQL_EDIT)) {
                     stmt.setString(1,article.getTitle());
                     stmt.setString(2,article.getBody());
-                    stmt.setLong(3, article.getCreator().getId());
-                    //stmt.setDate(4, article.getCreated());
-                    stmt.setLong(5, article.getId());
+                    stmt.setLong(3, article.getId());
                     stmt.execute();
                 }
             } finally {
