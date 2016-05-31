@@ -1,17 +1,21 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
-    color: white;
+    background-color: transparent;
+    color: #4a4a4a;
+    font-size: 36px;
+    font-weight: 600;
     padding: 5px;
     margin: 0px 0px 10px 0px;
 }
 
 #bottom {
     position: relative;
-    background-color: #c2dfef;
+    background-color: transparent;
     padding: 5px;
+    color: #666;
     margin: 10px 0px 0px 0px;
+    text-align: center;
 }
 
 #left {
@@ -28,10 +32,16 @@
     width: 150px;
 }
 
-.center_content {
-    position: relative;
-    background-color: #dddddd;
-    padding: 5px;
+.center_content table {
+    border-spacing: 8px;
+}
+
+div.center_content tr > td {
+    background-color: white;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 13px;
 }
 
 .left_content {
@@ -58,4 +68,6 @@
   text-decoration : underline;
 }
 
-
+div.author {
+    margin-top: 20px;
+}

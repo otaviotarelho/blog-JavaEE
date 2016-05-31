@@ -8,38 +8,44 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:define name="title">
-        
+        sdansdjna
     </ui:define>
     
     <ui:define name="top">
-        top
+        Blog
     </ui:define>
-
     <ui:define name="content">
+        
         <c:if test="${param.id != null}"></c:if>
         #{articleBackBean.getArticle(param.id)}
-        #{articleBackBean.article.title} <br />
-        #{articleBackBean.article.body} <br />
-        <h:outputText value="Created in:"/> #{articleBackBean.article.created.date} | <h:outputText value="by:"/> #{articleBackBean.article.creator.name}
-        <br />
-        <br />
-        Comment Now!
-        <h:form>
-            <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}"></h:inputTextarea><br />
-            <h:commandButton value="Comment" action="#{commentBackBean.add()}"/>
-        </h:form>
-        <br />
-        <h:dataTable value="#{commentBackBean.comments}" var="c">
-            <h:column>
-                <f:facet name="header">Previous Comments</f:facet>
-                #{c.content} <br />
-                <h:outputText value="Created in:"/> #{c.dateOfCreation} | <h:outputText value="by:"/> #{c.author.name}
-            </h:column>
-        </h:dataTable>
-    </ui:define>
-
-    <ui:define name="bottom">
-        bottom
+        <table>
+            <tr>
+                <td>
+                    <h2>#{articleBackBean.article.title}</h2>
+                    <article>#{articleBackBean.article.body}</article>
+                    <div class="author">
+                        <h:outputText value="Created in:"/> #{articleBackBean.article.created.date} | <h:outputText value="by:"/> #{articleBackBean.article.creator.name}
+                    </div>
+                    Comment Now!
+                    <div class="comment-area">
+                        <h:form>
+                        <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}"></h:inputTextarea><br />
+                        <h:commandButton value="Comment" action="#{commentBackBean.add()}"/>
+                    </h:form>
+                    <br />
+                    <h:dataTable value="#{commentBackBean.comments}" var="c">
+                        <h:column>
+                            <f:facet name="header">Previous Comments</f:facet>
+                            #{c.content} <br />
+                            <h:outputText value="Created in:"/> #{c.dateOfCreation} | <h:outputText value="by:"/> #{c.author.name}
+                        </h:column>
+                    </h:dataTable>
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+        
     </ui:define>
 
 </ui:composition>

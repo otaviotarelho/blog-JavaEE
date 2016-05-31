@@ -7,7 +7,7 @@
                 xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="top">
-        Welcome #{userBackBean.user.getName()}!
+        Welcome #{userBackBean.user.getName()}! #{userBackBean.user.getType()} <h:form><h:commandLink value="Logout" action="#{userBackBean.logout()}"/></h:form>
     </ui:define>
 
     <ui:define name="content">
@@ -39,7 +39,7 @@
     </ui:define>
 
     <ui:define name="bottom">
-        bottom
+        Authors: Leonardo Oliveira, Mariana Bispo e Otavio Tarelho
     </ui:define>
 
 </ui:composition>

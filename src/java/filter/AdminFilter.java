@@ -5,8 +5,11 @@
  */
 package filter;
 
+import bean.ArticleBackBean;
 import bean.UserBackBean;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -39,8 +42,10 @@ public class AdminFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(true);
         UserBackBean mb = new UserBackBean();
         mb.setUser((User) session.getAttribute("user"));
-        if(mb.getUser() != null && mb.getUser().isAuthorized() && mb.getUser().getType() == 1){
+        
+        if(mb.getUser() != null && mb.getUser().isAuthorized() && mb.getUser().getType() != 2){
             chain.doFilter(request, response);
+            Logger.getLogger(AdminFilter.class.getName()).log(Level.SEVERE, null, mb.getUser().getType());
         }
         else {
             String contextPath = ((HttpServletRequest) request).getContextPath();

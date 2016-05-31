@@ -5,25 +5,19 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns="http://www.w3.org/1999/xhtml">
 
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
         #{articleBackBean.allArticle}
         <h:form>
             <h:dataTable value="#{articleBackBean.articles}" var="a">
                 <h:column>
-                    #{a.title} <br />
-                    #{a.body} <br />
-                    <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">Show Comments</h:outputLink>
+                    <h2>#{a.title}</h2>
+                    <article>#{a.body}</article>
+                    <div class="author">
+                        <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">Show Comments</h:outputLink>
+                    </div>
                 </h:column>
             </h:dataTable>
         </h:form>
-    </ui:define>
-
-    <ui:define name="bottom">
-        bottom
     </ui:define>
 
 </ui:composition>

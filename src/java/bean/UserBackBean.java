@@ -126,6 +126,7 @@ public class UserBackBean implements Serializable {
     }
     
     public String logout(){
+        user.setAuthorized(false);
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index";
     }
