@@ -7,11 +7,11 @@
     <ui:define name="content">
         #{articleBackBean.getArticle(param.id)};
         <h:form>#{msgs.welcome} #{userBackBean.user.getName()} | <h:commandLink value="#{msgs.logout}" action="#{userBackBean.logout()}"/></h:form>
-        <h:outputLink  value="../index.xhtml">Blog</h:outputLink> |
-        <h:outputLink  value="./main.xhtml">#{msgs.main}</h:outputLink> |
-        <h:outputLink  value="./new-article.xhtml">#{msgs.narticle}</h:outputLink> |
-        <h:outputLink  value="./register-user.xhtml">#{msgs.nuser}</h:outputLink> |
-        <h:outputLink  value="./users.xhtml">#{msgs.users}</h:outputLink>
+        <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/main.xhtml">#{msgs.main}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/new-article.xhtml">#{msgs.narticle}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/register-user.xhtml">#{msgs.nuser}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/users.xhtml">#{msgs.users}</h:outputLink>
         <h:form>
             <h:panelGrid columns="1">
                 <h:outputLabel id="titleLabel" value="#{msgs.title}"/>

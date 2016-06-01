@@ -18,7 +18,7 @@ import user.User;
  * @author otaviotarelho
  */
 public class CommentsDAO {
-    private static final String SQL_GET_COMMENTS = "SELECT * FROM `comments`WHERE article = ?";
+    private static final String SQL_GET_COMMENTS = "SELECT c.*, u.id as userid, u.name FROM comments c, users u WHERE u.id = c.authorID and article = ?";
     private static final String SQL_INSERT_COMMENTS = "INSERT INTO `comments` (`authorID`, `article`, `content`, `date`) VALUES (?, ?, ?, NOW());";
     private Connection connection;
     
@@ -34,6 +34,7 @@ public class CommentsDAO {
                     Comment c = new Comment();
                     User u = new User();
                     u.setId((long)rs.getInt("authorID"));
+                    u.setName(rs.getString("name"));
                     c.setAuthor(u);
                     c.setId(rs.getLong("id"));
                     c.setContent(rs.getString("content"));

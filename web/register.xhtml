@@ -7,29 +7,25 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
-        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
-        <h:outputLink  value="./register.xhtml">register</h:outputLink> 
+        <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="/Blog/faces/login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/register.xhtml">register</h:outputLink>   
         <h:form>
             <h:panelGrid columns="2">
                 ${msgs.name}:
-                <h:inputText id="nome" label="nome" value="#{userBackBean.user.name}" 
+                <h:inputText id="nome" label="nome" value="#{userBackBean.newUser.name}" 
                              required="true" requiredMessage="#{msgs.noname}"/>
                 ${msgs.username}:
-                <h:inputText id="username" label="username" value="#{userBackBean.user.username}" required="true" requiredMessage="#{msgs.nousername}"/>
+                <h:inputText id="username" label="username" value="#{userBackBean.newUser.username}" required="true" requiredMessage="#{msgs.nousername}"/>
                 #{msgs.password}:
-                <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" requiredMessage="#{msgs.nopassword}"/>
+                <h:inputSecret id="password" value="#{userBackBean.newUser.pwd}" required="true" requiredMessage="#{msgs.nopassword}"/>
                 #{msgs.type}:
-                <h:selectOneMenu id="type" value="#{userBackBean.user.type}">
+                <h:selectOneMenu id="type" value="#{userBackBean.newUser.type}">
                     <f:selectItem itemValue="2" itemLabel="Reader"/>
                 </h:selectOneMenu>
-                <h:commandButton value="#{msgs.register}" action="#{userBackBean.add()}"/>
+                <h:commandButton value="#{msgs.register}" action="#{userBackBean.add(1)}"/>
             </h:panelGrid>
         </h:form>
-    </ui:define>
-
-    <ui:define name="bottom">
-        bottom
     </ui:define>
 
 </ui:composition>

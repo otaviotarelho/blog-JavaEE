@@ -3,12 +3,13 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./_blogTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
-        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
-        <h:outputLink  value="./register.xhtml">register</h:outputLink> 
+        <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="/Blog/faces/login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/register.xhtml">register</h:outputLink> 
         #{articleBackBean.allArticle}
         <h:form>
             <h:dataTable value="#{articleBackBean.articles}" var="a">
@@ -16,7 +17,8 @@
                     <h2>#{a.title}</h2>
                     <article>#{a.body}</article>
                     <div class="author">
-                        <h:outputText value="${msgs.created}"/> #{a.created} | <h:outputText value="${msgs.by}:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">${msgs.comments}</h:outputLink>
+                        <h:outputText value="${msgs.created}: "/> <h:outputText value="#{commentBackBean.convertStringToDate(a.created)}"><f:convertDateTime type="date" pattern="#{msgs.dayformat}"/></h:outputText>
+ | <h:outputText value="${msgs.by}:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">${msgs.comments}</h:outputLink>
                     </div>
                 </h:column>
             </h:dataTable>

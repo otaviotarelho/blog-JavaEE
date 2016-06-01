@@ -12,26 +12,31 @@
         <c:if test="${param.id != null}">
             #{articleBackBean.getArticle(param.id)}
             #{commentBackBean.list(param.id)}
+            #{commentBackBean.comment.setArticle(param.id)}
         </c:if>
-        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
-        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
-        <h:outputLink  value="./register.xhtml">register</h:outputLink>     
+        <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="/Blog/faces/login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/register.xhtml">register</h:outputLink>     
         <table>
             <tr>
                 <td>
                     <h2>#{articleBackBean.article.title}</h2>
                     <article>#{articleBackBean.article.body}</article>
                     <div class="author">
-                        <h:outputText value="#{msgs.created}:"/> #{articleBackBean.article.created} | <h:outputText value="${msgs.by}:"/> #{articleBackBean.article.creator.name}
+                        <h:outputText value="#{msgs.created}: "/><h:outputText value="#{commentBackBean.convertStringToDate(articleBackBean.article.created)}"><f:convertDateTime type="date" pattern="#{msgs.dayformat}"/></h:outputText> | <h:outputText value="${msgs.by}:"/> #{articleBackBean.article.creator.name}
                     </div>
                     <br/>
                     <br/>
                     <div class="comment-area">
                         <h:form>
                             #{msgs.commentnow}<br/><br/> 
-                            <h:outputText value="#{msgs.loggedin}" rendered="#{userBackBean.user.authorized eq false}"/><h:outputLink value="login.xhtml" rendered="#{userBackBean.user.authorized eq false}">#{msgs.logginText}</h:outputLink>
-                            <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}" rendered="#{userBackBean.user.authorized eq true}"></h:inputTextarea><br/><br />
-                            <h:commandButton value="#{msgs.button}" action="#{commentBackBean.add(param.id, userBackBean.user.id)}" rendered="#{userBackBean.user.authorized eq true}"/>
+                            <h:outputText value="#{msgs.loggedin}" rendered="#{userBackBean.user.authorized eq false}"/>
+                            <h:outputLink value="login.xhtml" rendered="#{userBackBean.user.authorized eq false}">
+                                #{msgs.logginText}
+                            </h:outputLink>
+                            <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}" rendered="#{userBackBean.user.authorized eq true}"/>
+                            <br/><br />
+                            <h:commandButton value="#{msgs.button}" action="#{commentBackBean.add(userBackBean.user.id)}" rendered="#{userBackBean.user.authorized eq true}"/>
                             <h:outputText value="#{msgs.author} :" rendered="#{userBackBean.user.authorized eq true}"/> #{userBackBean.user.name}
                             </h:form>
                         <br />
@@ -39,7 +44,11 @@
                             <h:column>
                                 <f:facet name="header">${msgs.commentprevious}</f:facet>
                                 #{c.content} <br />
-                                <h:outputText value="${msgs.created}:"/> #{c.dateOfCreation} | <h:outputText value="${msgs.by}:"/> #{c.author.name}
+                                <h:outputText value="${msgs.created}:"/> 
+                                <h:outputText value="#{commentBackBean.convertStringToDate(c.dateOfCreation)}">
+                                    <f:convertDateTime type="date" pattern="#{msgs.dayformat}"/>
+                                </h:outputText>
+                                | <h:outputText value="${msgs.by}:"/> #{c.author.name}
                             </h:column>
                         </h:dataTable>
                         <h:outputText value="#{msgs.nocomment}" rendered="#{commentBackBean.comments.size() eq 0}"/>

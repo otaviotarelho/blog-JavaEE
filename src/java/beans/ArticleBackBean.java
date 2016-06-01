@@ -10,7 +10,11 @@ import article.ArticleDAO;
 import java.io.Serializable;
 import java.sql.Array;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,6 +101,12 @@ public class ArticleBackBean implements Serializable {
 
         return null;
     }
+    
+//    public Date getNewDate(String date) throws ParseException{
+//        DateFormat formatter1;
+//        formatter1 = new SimpleDateFormat("MMM d, yyyy HH:mm:ss");
+//        return (Date)formatter1.parse(date);
+//    }
 
     public String getArticle(Long id) throws SQLException {
         ArticleDAO a = new ArticleDAO();

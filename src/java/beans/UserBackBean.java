@@ -30,6 +30,7 @@ import user.UserDAO;
 
 public class UserBackBean implements Serializable {
     private User user = new User();
+    private User newUser = new User();
     private List<User> users = new ArrayList<>();
     private String ErrorMessage;
 
@@ -52,21 +53,33 @@ public class UserBackBean implements Serializable {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    public User getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(User newUser) {
+        this.newUser = newUser;
+    }
     
-    public String add() throws SQLException{
+    public String add(long local) throws SQLException{
         UserDAO u = new UserDAO();
         
         try {
             
-            u.addNew(user);
+            u.addNew(newUser);
             
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();
             Logger.getLogger(ArticleBackBean.class.getName()).log(Level.SEVERE, null, e);
             throw e;
         }
-        
-        return null;
+        if(local == 1){
+          return "./index.html";  
+        }
+        else{
+          return "./users.html";  
+        }
     }
     
     public String list() throws SQLException{

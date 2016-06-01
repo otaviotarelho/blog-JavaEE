@@ -8,31 +8,28 @@
     <ui:define name="content">
         
         <h:form>#{msgs.welcome} #{userBackBean.user.getName()} | <h:commandLink value="#{msgs.logout}" action="#{userBackBean.logout()}"/></h:form>
-        <h:outputLink  value="../index.xhtml">Blog</h:outputLink> |
-        <h:outputLink  value="./main.xhtml">#{msgs.main}</h:outputLink> |
-        <h:outputLink  value="./new-article.xhtml">#{msgs.narticle}</h:outputLink> |
-        <h:outputLink  value="./register-user.xhtml">#{msgs.nuser}</h:outputLink> |
-        <h:outputLink  value="./users.xhtml">#{msgs.users}</h:outputLink>
+        <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/main.xhtml">#{msgs.main}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/new-article.xhtml">#{msgs.narticle}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/register-user.xhtml">#{msgs.nuser}</h:outputLink> |
+        <h:outputLink  value="/Blog/faces/admin/users.xhtml">#{msgs.users}</h:outputLink>
         
         <h:form>
             <h:panelGrid columns="2">
                 #{msgs.name}:
-                <h:inputText id="nome" label="nome" value="#{userBackBean.user.name}" 
+                <h:inputText id="nome" label="nome" value="#{userBackBean.newUser.name}" 
                              required="true" />
-                <h:message for="nome"/>
                 #{msgs.username}:
-                <h:inputText id="username" label="username" value="#{userBackBean.user.username}" required="true" />
-                <h:message for="username"/>
+                <h:inputText id="username" label="username" value="#{userBackBean.newUser.username}" required="true" />
                 #{msgs.password}:
-                <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" />
-                <h:message for="password"/>
+                <h:inputSecret id="password" value="#{userBackBean.newUser.pwd}" required="true" />
                 #{msgs.type}:
-                <h:selectOneMenu id="type" value="#{userBackBean.user.type}">
+                <h:selectOneMenu id="type" value="#{userBackBean.newUser.type}">
                     <f:selectItem itemValue="1" itemLabel="Admin"/>
                     <f:selectItem itemValue="2" itemLabel="Reader"/>
                 </h:selectOneMenu>
                 <h:message for="type"/>
-                <h:commandButton value="#{msgs.register}" action="#{userBackBean.add()}"/>
+                <h:commandButton value="#{msgs.register}" action="#{userBackBean.add(2)}"/>
             </h:panelGrid>
         </h:form>
     </ui:define>
