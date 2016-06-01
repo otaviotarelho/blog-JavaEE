@@ -25,8 +25,8 @@
                 <h:inputSecret id="password" value="#{userBackBean.newUser.pwd}" required="true" />
                 #{msgs.type}:
                 <h:selectOneMenu id="type" value="#{userBackBean.newUser.type}">
-                    <f:selectItem itemValue="1" itemLabel="Admin"/>
-                    <f:selectItem itemValue="2" itemLabel="Reader"/>
+                    <f:selectItem itemValue="1" itemLabel="#{msgs.admin}"/>
+                    <f:selectItem itemValue="2" itemLabel="#{msgs.reader}"/>
                 </h:selectOneMenu>
                 <h:message for="type"/>
                 <h:commandButton value="#{msgs.register}" action="#{userBackBean.add(2)}"/>

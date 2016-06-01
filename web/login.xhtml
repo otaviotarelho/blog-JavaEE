@@ -8,7 +8,7 @@
     <ui:define name="content">
         <h:outputLink  value="/Blog/faces/index.xhtml">Blog</h:outputLink>  |
         <h:outputLink  value="/Blog/faces/login.xhtml">Login</h:outputLink> |
-        <h:outputLink  value="/Blog/faces/register.xhtml">register</h:outputLink><br/><br/>  
+        <h:outputLink  value="/Blog/faces/register.xhtml">#{msgs.register}</h:outputLink><br/><br/>  
         <h:form>
             <h:outputText value="#{msgs.login}:" />
             <h:inputText id="login" value="#{userBackBean.user.username}" required="true"
