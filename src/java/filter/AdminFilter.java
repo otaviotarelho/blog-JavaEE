@@ -5,8 +5,8 @@
  */
 package filter;
 
-import bean.ArticleBackBean;
-import bean.UserBackBean;
+import beans.ArticleBackBean;
+import beans.UserBackBean;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +27,7 @@ import user.User;
  *
  * @author otaviotarelho
  */
-///@WebFilter(filterName = "AdminFilter", urlPatterns = {"/faces/admin/*"},
-   //   dispatcherTypes = {DispatcherType.REQUEST})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/faces/admin/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 
 public class AdminFilter implements Filter {
     
@@ -39,9 +38,8 @@ public class AdminFilter implements Filter {
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest) request).getSession(true);
+        HttpSession session = ((HttpServletRequest) request).getSession(false);
         User user = ((User) session.getAttribute("user"));
-        
         if(user != null && user.isAuthorized() && user.getType() != 2){
             chain.doFilter(request, response);
             Logger.getLogger(AdminFilter.class.getName()).log(Level.SEVERE, null, user.getType());
@@ -49,6 +47,9 @@ public class AdminFilter implements Filter {
         else {
             user = new User();
             session.setAttribute("user", user);
+            String contextPath = ((HttpServletRequest) request).getContextPath();
+            ((HttpServletResponse) response).
+                    sendRedirect(contextPath + "/faces/index.xhtml");
         }
     }
     

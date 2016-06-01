@@ -5,26 +5,17 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns="http://www.w3.org/1999/xhtml">
 
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
         <h:form>
-            <h:outputText value="Login:" />
+            <h:outputText value="#{msgs.login}:" />
             <h:inputText id="login" value="#{userBackBean.user.username}" required="true"
-                      requiredMessage="Erro: informe o login"/>
-            <h:outputText value="Senha:" />
+                         requiredMessage="#{msgs.nousername}"/>
+            <h:outputText value="${msgs.password}:" />
             <h:inputText id="password" value="#{userBackBean.user.pwd}" 
-                         required="true" requiredMessage="Erro: informe a senha" />
-            <h:commandButton value="Login" action="#{userBackBean.loggin()}" /><br />
+                         required="true" requiredMessage="#{msgs.nopassword}" />
+            <h:commandButton value="#{msgs.button}" action="#{userBackBean.loggin()}" /><br />
             <h:outputText value="#{userBackBean.getMessage()}"
                               style="color: red"/>
         </h:form>
     </ui:define>
-
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
-
 </ui:composition>

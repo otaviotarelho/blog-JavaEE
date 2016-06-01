@@ -12,15 +12,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
+import user.User;
 /**
  *
  * @author otaviotarelho
  */
 public class CommentsDAO {
-    private static final String SQL_GET_COMMENTS = "SELECT * FROM 'comments' "
-            + "WHERE articleID = ?";
-    private static final String SQL_INSERT_COMMENTS = "";
-    private static final String SQL_REMOVE_COMMENTS = "";
+    private static final String SQL_GET_COMMENTS = "SELECT * FROM `comments`WHERE article = ?";
+    private static final String SQL_INSERT_COMMENTS = "INSERT INTO `comments` (`authorID`, `article`, `content`, `date`) VALUES (?, ?, ?, NOW());";
     private Connection connection;
     
     public List<Comment> getComments(Long Article) throws SQLException{
@@ -33,11 +32,12 @@ public class CommentsDAO {
                 ResultSet rs = stmt.executeQuery();
                 while(rs.next()){
                     Comment c = new Comment();
-                    //c.setAuthor(rs.getString("author"), rs.getLong("authorID"));
-                    c.setAuthor("Otavio",(long)1);
+                    User u = new User();
+                    u.setId((long)rs.getInt("authorID"));
+                    c.setAuthor(u);
                     c.setId(rs.getLong("id"));
                     c.setContent(rs.getString("content"));
-                    c.setDateOfCreation(rs.getDate("date"));
+                    c.setDateOfCreation(rs.getString("date"));
                     comments.add(c);
                 }
             } finally {
@@ -54,25 +54,10 @@ public class CommentsDAO {
     public void addNew(Comment comment) throws SQLException{
         try {
             connection = new ConnectionFactory().getConnection();
-            //java.sql.Date date = new java.sql.Date(comment.getDateOfCreation());
             try (PreparedStatement stmt = connection.prepareStatement(SQL_INSERT_COMMENTS)) {
                 stmt.setLong(1, comment.getAuthor().getId());
-                stmt.setString(2, comment.getContent());
-                //stmt.setDate(3, comment.getDateOfCreation());
-                stmt.execute();
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException e){
-            throw e;
-        }
-    }
-    
-    public void removeComment(Long id) throws SQLException {
-        try {
-            connection = new ConnectionFactory().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(SQL_REMOVE_COMMENTS)) {
-                stmt.setLong(1, id);
+                stmt.setLong(2, comment.getArticle());
+                stmt.setString(3, comment.getContent());
                 stmt.execute();
             } finally {
                 connection.close();

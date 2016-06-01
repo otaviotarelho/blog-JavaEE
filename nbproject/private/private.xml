@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/otaviotarelho/NetBeansProjects/Blog/src/java/filter/AdminFilter.java</file>
-            <file>file:/Users/otaviotarelho/NetBeansProjects/Blog/src/java/bean/UserBackBean.java</file>
-            <file>file:/Users/otaviotarelho/NetBeansProjects/Blog/web/admin/main.xhtml</file>
-            <file>file:/Users/otaviotarelho/NetBeansProjects/Blog/web/index.xhtml</file>
-            <file>file:/Users/otaviotarelho/NetBeansProjects/Blog/web/article.xhtml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

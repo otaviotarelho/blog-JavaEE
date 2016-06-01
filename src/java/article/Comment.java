@@ -7,7 +7,6 @@
 package article;
 
 import java.io.Serializable;
-import java.util.Date;
 import user.User;
 
 /**
@@ -18,8 +17,9 @@ import user.User;
 public class Comment implements Serializable{
     private Long id;
     private User author;
+    private Long article;
     private String content;
-    private Date dateOfCreation;
+    private String dateOfCreation;
 
     public Long getId() {
         return id;
@@ -33,9 +33,8 @@ public class Comment implements Serializable{
         return author;
     }
 
-    public void setAuthor(String name, long id) {
-        this.author.setName(name);
-        this.author.setId(id);
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getContent() {
@@ -46,22 +45,23 @@ public class Comment implements Serializable{
         this.content = content;
     }
 
-    public Date getDateOfCreation() {
+    public String getDateOfCreation() {
         return dateOfCreation;
     }
 
-    public void setDateOfCreation(Date dateOfCreation) {
+    public void setDateOfCreation(String dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
     }
 
     public Comment() {
     }
 
-    public Comment(Long id, User author, String content, Date dateOfCreation) {
-        this.id = id;
-        this.author = author;
-        this.content = content;
-        this.dateOfCreation = dateOfCreation;
+    public Long getArticle() {
+        return article;
     }
-       
+
+    public void setArticle(Long article) {
+        this.article = article;
+    }
+    
 }

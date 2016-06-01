@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package beans;
 
 import article.Article;
 import article.ArticleDAO;
@@ -16,6 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import user.User;
 
 /**
  *
@@ -33,7 +36,11 @@ public class ArticleBackBean implements Serializable {
     public ArticleBackBean() throws SQLException {
        
     }
-
+    
+    public void newArticle() {
+        article = new Article();
+    }
+    
     public Article getArticle() {
         return article;
     }
@@ -60,8 +67,13 @@ public class ArticleBackBean implements Serializable {
 
     public String registerNewArticle() throws SQLException {
         ArticleDAO a = new ArticleDAO();
-
+        User user = null;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        user = (User) session.getAttribute("user");
+        
         try {
+            article.setCreator(user);
             a.addNew(article);
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();

@@ -6,29 +6,24 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
+        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="./register.xhtml">register</h:outputLink> 
         <h:form>
-            <h:panelGrid columns="3">
-                Name:
+            <h:panelGrid columns="2">
+                ${msgs.name}:
                 <h:inputText id="nome" label="nome" value="#{userBackBean.user.name}" 
-                             required="true" />
-                <h:message for="nome"/>
-                UserName:
-                <h:inputText id="username" label="username" value="#{userBackBean.user.username}" required="true" />
-                <h:message for="username"/>
-                Password:
-                <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" />
-                <h:message for="password"/>
-                Type:
+                             required="true" requiredMessage="#{msgs.noname}"/>
+                ${msgs.username}:
+                <h:inputText id="username" label="username" value="#{userBackBean.user.username}" required="true" requiredMessage="#{msgs.nousername}"/>
+                #{msgs.password}:
+                <h:inputSecret id="password" value="#{userBackBean.user.pwd}" required="true" requiredMessage="#{msgs.nopassword}"/>
+                #{msgs.type}:
                 <h:selectOneMenu id="type" value="#{userBackBean.user.type}">
                     <f:selectItem itemValue="2" itemLabel="Reader"/>
                 </h:selectOneMenu>
-                <h:message for="type"/>
-                <h:commandButton value="Cadastrar" action="#{userBackBean.add()}"/>
+                <h:commandButton value="#{msgs.register}" action="#{userBackBean.add()}"/>
             </h:panelGrid>
         </h:form>
     </ui:define>

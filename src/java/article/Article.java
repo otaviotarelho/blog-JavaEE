@@ -17,7 +17,7 @@ public class Article implements Serializable{
     private Long id;
     private String title;
     private String body;
-    private Date created;
+    private String created;
     private User creator;
 
     public String getTitle() {
@@ -36,11 +36,11 @@ public class Article implements Serializable{
         this.body = body;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 

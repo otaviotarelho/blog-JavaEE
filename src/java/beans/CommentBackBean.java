@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package beans;
 
 import article.Comment;
 import article.CommentsDAO;
@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import user.User;
 
 /**
  *
@@ -51,28 +52,15 @@ public class CommentBackBean  implements Serializable {
         return this.comments.size();
     }
     
-    public String add() throws SQLException{
+    public String add(long article, long user) throws SQLException{
         CommentsDAO c = new CommentsDAO();
         
         try {
-            
+            User author = new User();
+            author.setId((long)user);
+            comment.setArticle(article);
+            comment.setAuthor(author);
             c.addNew(comment);
-            
-        } catch (SQLException e) {
-            ErrorMessage = e.getMessage();
-            Logger.getLogger(ArticleBackBean.class.getName()).log(Level.SEVERE, null, e);
-            throw e;
-        }
-        
-        return null;
-    }
-    
-    public String remove() throws SQLException {
-        CommentsDAO c = new CommentsDAO();
-        
-        try {
-            
-            c.removeComment(comment.getId());
             
         } catch (SQLException e) {
             ErrorMessage = e.getMessage();

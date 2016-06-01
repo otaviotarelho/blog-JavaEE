@@ -18,7 +18,7 @@ import java.util.List;
  * @author otaviotarelho
  */
 public class UserDAO {
-    private static final String SQL_NEW = "INSERT INTO `users` (`name`, `username`, `pwd`, `type`) VALUES (?, ?, ?, ?)";
+    private static final String SQL_NEW = "INSERT INTO `users` (`name`, `username`, `pwd`, `type`, `valid`) VALUES (?, ?, ?, ?, 1)";
     private static final String SQL_REMOVE = "UPDATE `blog`.`users` SET `valid`='0' WHERE `id`=?;";
     private static final String SQL_USERS = "SELECT * FROM users";
     private static final String SQL_USER = "SELECT * FROM users where username = ?";

@@ -6,6 +6,9 @@
                 xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="content">
+        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="./register.xhtml">register</h:outputLink> 
         #{articleBackBean.allArticle}
         <h:form>
             <h:dataTable value="#{articleBackBean.articles}" var="a">
@@ -13,7 +16,7 @@
                     <h2>#{a.title}</h2>
                     <article>#{a.body}</article>
                     <div class="author">
-                        <h:outputText value="Created in:"/> #{a.created.date} | <h:outputText value="by:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">Show Comments</h:outputLink>
+                        <h:outputText value="${msgs.created}"/> #{a.created} | <h:outputText value="${msgs.by}:"/> #{a.creator.name} <h:outputLink  value="./faces/article.xhtml?id=#{a.id}">${msgs.comments}</h:outputLink>
                     </div>
                 </h:column>
             </h:dataTable>

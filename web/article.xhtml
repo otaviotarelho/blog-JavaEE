@@ -7,47 +7,47 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="title">
-        sdansdjna
-    </ui:define>
-
-    <ui:define name="top">
-        Blog
-    </ui:define>
     <ui:define name="content">
-
-        <c:if test="${param.id != null}"></c:if>
+        
+        <c:if test="${param.id != null}">
             #{articleBackBean.getArticle(param.id)}
+            #{commentBackBean.list(param.id)}
+        </c:if>
+        <h:outputLink  value="./index.xhtml">Blog</h:outputLink>  |
+        <h:outputLink  value="./login.xhtml">Login</h:outputLink> |
+        <h:outputLink  value="./register.xhtml">register</h:outputLink>     
         <table>
             <tr>
                 <td>
                     <h2>#{articleBackBean.article.title}</h2>
                     <article>#{articleBackBean.article.body}</article>
                     <div class="author">
-                        <h:outputText value="Created in:"/> #{articleBackBean.article.created.date} | <h:outputText value="by:"/> #{articleBackBean.article.creator.name}
+                        <h:outputText value="#{msgs.created}:"/> #{articleBackBean.article.created} | <h:outputText value="${msgs.by}:"/> #{articleBackBean.article.creator.name}
                     </div>
-                    Comment Now!
+                    <br/>
+                    <br/>
                     <div class="comment-area">
                         <h:form>
-                            <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}"></h:inputTextarea><br />
-                            <h:commandButton value="Comment" action="#{commentBackBean.add()}"/>
-                        </h:form>
+                            #{msgs.commentnow}<br/><br/> 
+                            <h:outputText value="#{msgs.loggedin}" rendered="#{userBackBean.user.authorized eq false}"/><h:outputLink value="login.xhtml" rendered="#{userBackBean.user.authorized eq false}">#{msgs.logginText}</h:outputLink>
+                            <h:inputTextarea cols="50" value="#{commentBackBean.comment.content}" rendered="#{userBackBean.user.authorized eq true}"></h:inputTextarea><br/><br />
+                            <h:commandButton value="#{msgs.button}" action="#{commentBackBean.add(param.id, userBackBean.user.id)}" rendered="#{userBackBean.user.authorized eq true}"/>
+                            <h:outputText value="#{msgs.author} :" rendered="#{userBackBean.user.authorized eq true}"/> #{userBackBean.user.name}
+                            </h:form>
                         <br />
-                        <!--<c:if test="#{commentBackBean.getSize() != '0'}">-->
-                            <h:dataTable value="#{commentBackBean.comments}" var="c">
-                                <h:column>
-                                    <f:facet name="header">Previous Comments</f:facet>
-                                    #{c.content} <br />
-                                    <h:outputText value="Created in:"/> #{c.dateOfCreation} | <h:outputText value="by:"/> #{c.author.name}
-                                </h:column>
-                            </h:dataTable>
-                        <!--</c:if>-->
+                        <h:dataTable value="#{commentBackBean.comments}" rendered="#{commentBackBean.comments.size() ge 0}" var="c">
+                            <h:column>
+                                <f:facet name="header">${msgs.commentprevious}</f:facet>
+                                #{c.content} <br />
+                                <h:outputText value="${msgs.created}:"/> #{c.dateOfCreation} | <h:outputText value="${msgs.by}:"/> #{c.author.name}
+                            </h:column>
+                        </h:dataTable>
+                        <h:outputText value="#{msgs.nocomment}" rendered="#{commentBackBean.comments.size() eq 0}"/>
+                   
                     </div>
 
                 </td>
             </tr>
         </table>
-        
     </ui:define>
-
 </ui:composition>

@@ -22,8 +22,8 @@ public class ArticleDAO {
 
     private static final String SQL_NEW = "INSERT INTO `articles` (`title`, `body`, `date`, `authorID`) "
             + "VALUES (?, ?, NOW(), ?);";
-    private static final String SQL_SELECT_ONE = "SELECT * FROM articles WHERE id=?";
-    private static final String SQL_SELECT_ALL = "SELECT * FROM articles ";
+    private static final String SQL_SELECT_ONE = "SELECT a.id, a.title, a.body, a.date, u.id as userid, u.name FROM articles a, users u where u.id = a.authorID and a.id=?";
+    private static final String SQL_SELECT_ALL = "SELECT a.id, a.title, a.body, a.date, u.id as userid, u.name FROM articles a, users u where u.id = a.authorID ";
     private static final String SQL_REMOVE = "DELETE FROM `blog`.`articles` WHERE `id`=?;";
     private static final String SQL_EDIT = "UPDATE `articles` SET `title`=?, `body`=? WHERE `id`=?;";
     private Connection connection;
@@ -35,7 +35,7 @@ public class ArticleDAO {
                 PreparedStatement stmt = connection.prepareStatement(SQL_NEW);
                 stmt.setString(1,article.getTitle());
                 stmt.setString(2,article.getBody());
-                stmt.setInt(3, 1);
+                stmt.setLong(3, article.getCreator().getId());
                 stmt.execute();
             } finally {
                 connection.close();
@@ -71,16 +71,15 @@ public class ArticleDAO {
                     rs = stmt.executeQuery();
                     while (rs.next()) {
                         Article a = new Article();
-                        a.setId(rs.getLong("id"));
-                        a.setBody(rs.getString("body"));
-                        a.setCreated(rs.getDate("date"));
-                        a.setTitle(rs.getString("title"));
+                        a.setId(rs.getLong("a.id"));
+                        a.setBody(rs.getString("a.body"));
+                        a.setCreated(rs.getString("a.date"));
+                        a.setTitle(rs.getString("a.title"));
                         
                         User u = new User();
-                        //u.setId(rs.getLong("authorID"));
-                        //u.setName(rs.getString("author"));
-                        u.setId((long)1);
-                        u.setName("Otavio");
+                        u.setId(rs.getLong("userid"));
+                        u.setName(rs.getString("u.name"));
+                        
                         a.setCreator(u);
                         
                         articles.add(a);
@@ -107,14 +106,14 @@ public class ArticleDAO {
                     stmt.setLong(1, art);
                     rs = stmt.executeQuery();
                     while (rs.next()) {
-                        articles.setId(rs.getLong("id"));
-                        articles.setBody(rs.getString("body"));
-                        articles.setCreated(rs.getDate("date"));
-                        articles.setTitle(rs.getString("title"));
+                        articles.setId(rs.getLong("a.id"));
+                        articles.setBody(rs.getString("a.body"));
+                        articles.setCreated(rs.getString("a.date"));
+                        articles.setTitle(rs.getString("a.title"));
                         
                         User u = new User();
-                        u.setId((long)1);
-                        u.setName("Otavio");
+                        u.setId(rs.getLong("userid"));
+                        u.setName(rs.getString("u.name"));
 //                        u.setId(rs.getLong("authorID"));
 //                        u.setName(rs.getString("author"));
                         articles.setCreator(u);

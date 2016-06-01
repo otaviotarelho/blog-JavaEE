@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package beans;
 
 import article.CommentsDAO;
 import java.io.Serializable;
@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import user.User;
 import user.UserDAO;
 
@@ -114,10 +116,13 @@ public class UserBackBean implements Serializable {
         User aux = new User();
         
         aux = u.getUser(user.getUsername());
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
         
         if(user.getUsername().equals(aux.getUsername()) && user.getPwd().equals(aux.getPwd())){
             user = aux;
             user.setAuthorized(true);
+            session.setAttribute("user", user);
             if(user.getType() == 1){
                 return "/admin/main";
             }
@@ -125,7 +130,6 @@ public class UserBackBean implements Serializable {
                 return "/index";
             }
         }
-        
         message = "Username or password incorret!";
         return null;
     }
